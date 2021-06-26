@@ -18,21 +18,16 @@
         <div class="column">
             <div class="header">
                 <img src="assets/images/logo.png" title="Logo" alt="Site Logo" />
-                <h3>Sign Up</h3>
+                <h3>Sign In</h3>
                 <span>To Continue To Netflix Clone</span>
             </div>
             <form action="" method="post">
-                <input type="text" name="firstname" placeholder="First Name" required>
-                <input type="text" name="lastname" placeholder="Last Name" required>
                 <input type="text" name="username" placeholder="Your Username" required>
-                <input type="email" name="email" placeholder="Your Email" required>
-                <input type="email" name="email2" placeholder="Confirm Your Email" required>
                 <input type="password" name="password" placeholder="Password" required>
-                <input type="password" name="confirm_password" placeholder="Confirm Password" required>
                 <input type="submit" name="submit_button" value="Submit">
             
             </form>
-            <a href="login.php" class="signInMessage">Already Have An Account? Sign In Here</a>
+            <a href="register.php" class="signInMessage">Don't Have An Account? Sign Up Here</a>
 
         </div>
 
