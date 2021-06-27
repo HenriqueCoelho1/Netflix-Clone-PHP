@@ -8,5 +8,6 @@ class Constants{
     public static $email_invalid = "Invalid Email";
     public static $email_taken = "This email already in use";
     public static $password_dont_match = "The password do not match";
-    public static $password_length = "You password must be between 6 and 26 characters";
+    public static $password_length = "Your password must be between 6 and 26 characters";
+    public static $login_failed = "Your Username or your Password was incorrect";
 } 
