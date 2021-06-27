@@ -43,9 +43,16 @@ if(isset($_POST["submit_button"])){
                 <input type="text" name="firstname" placeholder="First Name" required>
                 <?php echo $account->get_error(Constants::$last_name_characters); ?>
                 <input type="text" name="lastname" placeholder="Last Name" required>
+                <?php echo $account->get_error(Constants::$username_characters); ?>
+                <?php echo $account->get_error(Constants::$username_taken); ?>
                 <input type="text" name="username" placeholder="Your Username" required>
+                <?php echo $account->get_error(Constants::$email_dont_match); ?>
+                <?php echo $account->get_error(Constants::$email_invalid); ?>
+                <?php echo $account->get_error(Constants::$email_taken); ?>
                 <input type="email" name="email" placeholder="Your Email" required>
                 <input type="email" name="confirm_email" placeholder="Confirm Your Email" required>
+                <?php echo $account->get_error(Constants::$password_dont_match); ?>
+                <?php echo $account->get_error(Constants::$password_length); ?>
                 <input type="password" name="password" placeholder="Password" required>
                 <input type="password" name="confirm_password" placeholder="Confirm Password" required>
                 <input type="submit" name="submit_button" value="Submit">
