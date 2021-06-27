@@ -1,6 +1,7 @@
 <?php
 require_once("includes/config.php");
 require_once("includes/classes/FormSanitizer.php");
+require_once("includes/classes/Constants.php");
 require_once("includes/classes/Account.php");
 
 $account = new Account($con);
@@ -14,7 +15,7 @@ if(isset($_POST["submit_button"])){
     $password = FormSanitizer::sanitize_form_password($_POST["password"]);
     $confirm_password = FormSanitizer::sanitize_form_password($_POST["confirm_password"]);
 
-    $account->validate_first_name($firstname);
+    $account->register($firstname, $lastname, $username, $email, $confirm_email, $password, $confirm_password);
     
     
 
@@ -38,8 +39,9 @@ if(isset($_POST["submit_button"])){
                 <span>To Continue To Netflix Clone</span>
             </div>
             <form action="" method="post">
-                <?php echo $account->get_error("First Name Wrong Length"); ?>
+                <?php echo $account->get_error(Constants::$first_name_characters); ?>
                 <input type="text" name="firstname" placeholder="First Name" required>
+                <?php echo $account->get_error(Constants::$last_name_characters); ?>
                 <input type="text" name="lastname" placeholder="Last Name" required>
                 <input type="text" name="username" placeholder="Your Username" required>
                 <input type="email" name="email" placeholder="Your Email" required>
