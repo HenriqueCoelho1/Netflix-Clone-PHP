@@ -19,7 +19,7 @@ class PreviewProvider {
 
         return "<div class='previewContainer'>
                     <img src='$thumbnail' class='previewImage' hidden />
-                    <video autoplay muted class='previewVideo'>
+                    <video autoplay muted class='previewVideo' onended='previewEnded()'>
                         <source src='$preview' type='video/mp4' />
                     </video>
 
@@ -28,7 +28,7 @@ class PreviewProvider {
                             <h3>$name</h3>
                             <div>
                                 <button><i class='fa fa-play'></i> Play</button>
-                                <button><i class='fa fa-volume-mute'></i></button>
+                                <button onclick='volumeToggle(this)'><i class='fa fa-volume-mute'></i></button>
                             </div>
                         </div>
                     </div>
