@@ -36,11 +36,8 @@ class PreviewProvider {
     }
 
     private function get_random_entity(){
-        $query = $this->con->prepare("SELECT * FROM entities ORDER BY RAND() LIMIT 1");
-        $query->execute();
-
-        $row = $query->fetch(PDO::FETCH_ASSOC);
-        return new Entity($this->con, $row);
+        $entity = EntityProvider::get_entities($this->con, null, 1);
+        return $entity[0];
 
     }
 }
