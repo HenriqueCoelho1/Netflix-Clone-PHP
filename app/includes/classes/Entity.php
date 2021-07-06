@@ -30,6 +30,10 @@ class Entity {
         return $this->sql_data["preview"];
     }
 
+    public function get_category_id(){
+        return $this->sql_data["categoryId"];
+    }
+
     public function get_seasons(){
         $query = $this->con->prepare("SELECT * FROM videos WHERE entityId=:id 
         AND isMovie=0 ORDER BY season, episode ASC "); 

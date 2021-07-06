@@ -19,6 +19,20 @@ class CategoriesContainers {
         return $html . "</div>";
     }
 
+    public function show_category($category_id, $title = null){
+        $query = $this->con->prepare("SELECT * FROM categories WHERE id = :id ");
+        $query->bindValue(":id", $category_id);
+        $query->execute();
+
+        $html = "<div class='previewCategories noScroll'>";
+
+        while($row = $query->fetch(PDO::FETCH_ASSOC)){
+            $html .= $this->get_category_html($row, $title, true, true);
+        }
+        return $html . "</div>";
+
+    }
+
 
     private function get_category_html($sql_data, $title, $tv_shows, $movies){
         $category_id = $sql_data["id"];

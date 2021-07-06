@@ -43,8 +43,8 @@ class SeasonProvider {
                         <div class='contents'>
                             <img src='$thumbnail' />
 
-                            <div class='video'>
-                                <h4>$title</h4>
+                            <div class='videoInfo'>
+                                <h4>$episode_number. $title</h4>
                                 <span>$description</span>
                             </div>
                         </div>

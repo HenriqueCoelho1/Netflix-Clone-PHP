@@ -13,3 +13,6 @@ echo $preview->create_preview_video($entity);
 
 $season_provider = new SeasonProvider($con, $user_logged);
 echo $season_provider->create($entity);
+
+$category_container = new CategoriesContainers($con, $user_logged);
+echo $category_container->show_category($entity->get_category_id(), "You might also like");
