@@ -38,10 +38,31 @@ class Video {
     public function get_episode_number(){
         return $this->sql_data["episode"];
     }
+    public function get_season_number(){
+        return $this->sql_data["season"];
+    }
+    public function get_entity_id(){
+        return $this->sql_data["entityId"];
+    }
 
     public function increment_views(){
         $query = $this->con->prepare("UPDATE videos SET views=views+1 WHERE id=:id");
         $query->bindValue(":id", $this->get_id());
         $query->execute();
+    }
+
+    public function  get_season_and_episode(){
+        if($this->is_movie()){
+
+        }
+        $season = $this->get_season_number();
+        $episode = $this->get_episode_number();
+
+        return "Season $season, Episode $episode";
+    }
+
+    public function is_movie(){
+        return $this->sql_data["entityId"] == 1;
+
     }
 }
