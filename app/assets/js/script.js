@@ -30,11 +30,25 @@ const startHideTimer = () => {
 
 const initVideo = (videoId, username) => {
     startHideTimer()
+    setStartTime(videoId, username)
     updateProgressTimer(videoId, username)
 }
 
 const updateProgressTimer = (videoId, username) => {
     addDuration(videoId, username)
+
+    let timer
+
+    $("video").on("playing", function (event) {
+        window.clearInterval(timer)
+        timer = window.setInterval(function () {
+            updateProgress(videoId, username, event.target.currentTime)
+        }, 3000)
+    })
+        .on("ended", function () {
+            setFinished(videoId, username)
+            window.clearInterval(timer)
+        })
 }
 
 const addDuration = (videoId, username) => {
@@ -44,4 +58,34 @@ const addDuration = (videoId, username) => {
         }
     })
 
+}
+
+const updateProgress = (videoId, username, progress) => {
+    $.post("ajax/updateDuration.php", { videoId, username, progress }, function (data) {
+        if (data !== null && data !== "") {
+            alert(data)
+        }
+    })
+}
+
+const setFinished = (videoId, username) => {
+    $.post("ajax/setFinished.php", { videoId, username }, function (data) {
+        if (data !== null && data !== "") {
+            alert(data)
+        }
+    })
+}
+
+const setStartTime = (videoId, username) => {
+    $.post("ajax/getProgress.php", { videoId, username }, function (data) {
+        if (isNaN(data)) {
+            alert(data)
+            return
+        }
+
+        $("video").on("canplay", function () {
+            this.currentTime = data
+            $("video").off("canplay")
+        })
+    })
 }
