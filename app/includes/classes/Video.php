@@ -26,6 +26,9 @@ class Video {
     public function get_description(){
         return $this->sql_data["description"];
     }
+    public function get_file_path(){
+        return $this->sql_data["filePath"];
+    }
     public function get_video(){
         return $this->sql_data["video"];
     }
@@ -34,5 +37,11 @@ class Video {
     }
     public function get_episode_number(){
         return $this->sql_data["episode"];
+    }
+
+    public function increment_views(){
+        $query = $this->con->prepare("UPDATE videos SET views=views+1 WHERE id=:id");
+        $query->bindValue(":id", $this->get_id());
+        $query->execute();
     }
 }

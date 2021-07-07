@@ -6,9 +6,19 @@ CREATE TABLE user (
     lastname VARCHAR(25) NOT NULL,
     username VARCHAR(50) UNIQUE NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
-    password VARCHAR(60) NOT NULL,
+    password VARCHAR(200) NOT NULL,
     dh_insert DATETIME DEFAULT NOW(),
     is_subscribed TINYINT(1) NOT NULL DEFAULT 0,
+    PRIMARY KEY(id)
+);
+
+CREATE TABLE video_progress (
+    id INT NOT NULL AUTO_INCREMENT,
+    username VARCHAR(50) NOT NULL,
+    video_id INT NOT NULL,
+    progress INT NOT NULL,
+    finished TINYINT(1) NOT NULL DEFAULT 0,
+    date_modified DATETIME NOT NULL DEFAULT NOW(),
     PRIMARY KEY(id)
 );
 
