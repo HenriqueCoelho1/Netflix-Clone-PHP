@@ -16,15 +16,17 @@ $upNextVideo = VideoProvider::get_up_next($con, $video);
         <h1><?php echo $video->get_title(); ?></h1>
     </div>
 
-    <div class="videoControls upNext">
-        <button><i class="fas fa-redo"></i></button>
+    <div class="videoControls upNext" style="display:none;">
+        <button onclick="restartVideo()"><i class="fas fa-redo"></i></button>
         <div class="upNextContainer">
             <h2>Up next: </h2>
             <h3><?php echo $upNextVideo->get_title(); ?></h3>
             <h3><?php echo $upNextVideo->get_season_and_episode(); ?></h3>
+
+            <button onclick="watchVideo(<?php echo $upNextVideo->get_id() ?>)"><i class="fas fa-play"></i> Play</button>
         </div>
     </div>
-    <video controls autoplay>
+    <video controls autoplay onended="showUpNext()">
         <source src="<?php echo $video->get_file_path();?>" type="video/mp4">
     </video>
 </div>

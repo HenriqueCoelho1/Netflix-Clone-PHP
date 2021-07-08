@@ -17,6 +17,8 @@ class PreviewProvider {
         $preview = $entity->get_preview();
         $thumbnail = $entity->get_thumbnail();
 
+        $video_id = VideoProvider::get_entity_video_for_user($this->con, $id, $this->username);
+
         return "<div class='previewContainer'>
                     <img src='$thumbnail' class='previewImage' hidden />
                     <video autoplay muted class='previewVideo' onended='previewEnded()'>
@@ -27,7 +29,7 @@ class PreviewProvider {
                         <div class='mainDetails'>
                             <h3>$name</h3>
                             <div>
-                                <button><i class='fa fa-play'></i> Play</button>
+                                <button onclick='watchVideo($video_id)'><i class='fa fa-play'></i> Play</button>
                                 <button onclick='volumeToggle(this)'><i class='fa fa-volume-mute'></i></button>
                             </div>
                         </div>

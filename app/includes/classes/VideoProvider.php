@@ -24,5 +24,29 @@ class VideoProvider{
         $row = $query->fetch(PDO::FETCH_ASSOC);
         return new Video($con, $row);
     }
+
+    public static function get_entity_video_for_user($con, $entity_id, $username){
+        $query = $con->prepare("SELECT video_id FROM video_progress 
+        INNER JOIN videos ON video_progress.video_id = videos.id
+        WHERE videos.entityId = :entityId 
+        AND video_progress.username = :username
+        ORDER BY video_progress.date_modified DESC
+        LIMIT 1;");
+
+        $query->bindValue(":entityId", $entity_id);
+        $query->bindValue(":username", $username);
+
+        $query->execute();
+
+        if($query->rowCount() === 0){
+            $query = $con->prepare("SELECT id FROM videos WHERE entityId=:entityId 
+            ORDER BY season, episode ASC LIMIT 1");
+            $query->bindValue(":entityId", $entity_id);
+            $query->execute();
+        }
+
+        return $query->fetchColumn();
+
+    }
     
 }

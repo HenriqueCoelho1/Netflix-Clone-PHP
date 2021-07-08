@@ -62,7 +62,7 @@ class Video {
     }
 
     public function is_movie(){
-        return $this->sql_data["entityId"] == 1;
+        return $this->sql_data["isMovie"] == 1;
 
     }
 }

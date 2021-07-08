@@ -89,3 +89,17 @@ const setStartTime = (videoId, username) => {
         })
     })
 }
+
+const restartVideo = () => {
+    $("video")[0].currentTime = 0
+    $("video")[0].play()
+    $(".upNext").fadeOut()
+}
+
+const watchVideo = (videoId) => {
+    window.location.href = "watch.php?id=" + videoId
+}
+
+const showUpNext = () => {
+    $(".upNext").fadeIn()
+}
