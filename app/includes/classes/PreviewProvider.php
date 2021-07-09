@@ -19,6 +19,15 @@ class PreviewProvider {
 
         $video_id = VideoProvider::get_entity_video_for_user($this->con, $id, $this->username);
 
+        $video = new Video($this->con, $video_id);
+
+        $in_progress_video = $video->is_in_progress($this->username);
+        $play_button_text = $in_progress_video ? "Continue Watching" : "Play";
+
+
+        $season_episode = $video->get_season_and_episode();
+        $sub_heading = $video->is_movie() ? "" : "<h4>$season_episode</h4>";
+
         return "<div class='previewContainer'>
                     <img src='$thumbnail' class='previewImage' hidden />
                     <video autoplay muted class='previewVideo' onended='previewEnded()'>
@@ -28,8 +37,9 @@ class PreviewProvider {
                     <div class='previewOverlay'>
                         <div class='mainDetails'>
                             <h3>$name</h3>
+                            $sub_heading
                             <div>
-                                <button onclick='watchVideo($video_id)'><i class='fa fa-play'></i> Play</button>
+                                <button onclick='watchVideo($video_id)'><i class='fa fa-play'></i> $play_button_text</button>
                                 <button onclick='volumeToggle(this)'><i class='fa fa-volume-mute'></i></button>
                             </div>
                         </div>

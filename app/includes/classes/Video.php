@@ -63,6 +63,32 @@ class Video {
 
     public function is_movie(){
         return $this->sql_data["isMovie"] == 1;
+    }
+
+    public function is_in_progress($username){
+        $query = $this->con->prepare("SELECT * FROM video_progress 
+        WHERE video_id=:videoId 
+        AND username=:username AND finished = 0");
+
+        $query->bindValue("videoId", $this->get_id());
+        $query->bindValue("username", $username);
+        $query->execute();
+
+        return $query->rowCount() !== 0;
+    }
+
+
+    public function has_seen($username){
+        $query = $this->con->prepare("SELECT * FROM video_progress 
+        WHERE video_id=:videoId 
+        AND username=:username 
+        AND finished = 1");
+
+        $query->bindValue("videoId", $this->get_id());
+        $query->bindValue("username", $username);
+        $query->execute();
+
+        return $query->rowCount() !== 0;
 
     }
 }

@@ -134,9 +134,16 @@ a {
   background-color: rgba(0, 0, 0, 0.3);
   position: absolute;
 }
+
 .previewOverlay .mainDetails h3 {
   color: #fff;
   font-size: 40px;
+  margin: 15px 0;
+}
+
+.previewOverlay .mainDetails h4 {
+  color: #fff;
+  font-size: 20px;
   margin: 15px 0;
 }
 
@@ -208,6 +215,7 @@ button i {
   display: inline-flex;
   justify-content: center;
   margin-right: 4px;
+  position: relative;
 }
 
 .episodeContainer .contents {
@@ -278,4 +286,12 @@ button i {
 
 .watchNav {
   z-index: 2;
+}
+
+.seen {
+  color: #2ecc71;
+  font-size: 26px;
+  position: absolute;
+  top: 5px;
+  left: 5px;
 }
