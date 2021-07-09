@@ -31,3 +31,10 @@ $user_logged = $_SESSION["user_logged"];
 </head>
 <body>
     <div class="wrapper">
+
+<?php
+if(!isset($hide_nav)){
+    include_once("includes/navBar.php");
+}
+
+?>
