@@ -52,4 +52,32 @@ class EntityProvider {
         }
         return $result;
     }
+
+    public static function get_movies_entities($con, $category_id, $limit){
+        $sql = "SELECT DISTINCT(entities.id) FROM entities 
+        INNER JOIN videos 
+        ON entities.id = videos.entityId
+        WHERE videos.isMovie = 1 ";
+
+        if($category_id !== null){
+            $sql .= "AND categoryId=:categoryId ";
+        }
+
+        $sql .= "ORDER BY RAND() LIMIT :limit";
+
+        $query = $con->prepare($sql);
+
+        if($category_id !== null){
+            $query->bindValue(":categoryId", $category_id);
+        }
+
+        $query->bindValue(":limit", $limit, PDO::PARAM_INT);
+        $query->execute();
+
+        $result = array();
+        while($row = $query->fetch(PDO::FETCH_ASSOC)){
+            $result[] = new Entity($con, $row["id"]);
+        }
+        return $result;
+    }
 }

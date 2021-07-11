@@ -19,6 +19,32 @@ class CategoriesContainers {
         return $html . "</div>";
     }
 
+    public function show_tv_show_categories(){
+        $query = $this->con->prepare("SELECT * FROM categories ");
+        $query->execute();
+
+        $html = "<div class='previewCategories'>
+                <h1>Tv Shows</h1>";
+
+        while($row = $query->fetch(PDO::FETCH_ASSOC)){
+            $html .= $this->get_category_html($row, null, true, false);
+        }
+        return $html . "</div>";
+    }
+
+    public function show_movies_categories(){
+        $query = $this->con->prepare("SELECT * FROM categories ");
+        $query->execute();
+
+        $html = "<div class='previewCategories'>
+                <h1>Movies</h1>";
+
+        while($row = $query->fetch(PDO::FETCH_ASSOC)){
+            $html .= $this->get_category_html($row, null, false, true);
+        }
+        return $html . "</div>";
+    }
+
     public function show_category($category_id, $title = null){
         $query = $this->con->prepare("SELECT * FROM categories WHERE id = :id ");
         $query->bindValue(":id", $category_id);
@@ -41,11 +67,10 @@ class CategoriesContainers {
         if($tv_shows && $movies){
             $entities = EntityProvider::get_entities($this->con, $category_id, 30);
         }else if($tv_shows){
-            //get tv shows
+            $entities = EntityProvider::get_tv_show_entities($this->con, $category_id, 30);
             
         }else{
-            //get movies
-
+            $entities = EntityProvider::get_movies_entities($this->con, $category_id, 30);
         }
 
         if(sizeof($entities) == 0){
