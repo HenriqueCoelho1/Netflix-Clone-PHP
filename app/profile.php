@@ -4,7 +4,10 @@ require_once("includes/classes/Account.php");
 require_once("includes/classes/FormSanitizer.php");
 require_once("includes/classes/Constants.php");
 
+$details_message = "";
+
 if(isset($_POST["save_details_button"])){
+    
     $account = new Account($con);
 
     $firstname = FormSanitizer::sanitize_form_string($_POST["firstname"]);
@@ -12,9 +15,15 @@ if(isset($_POST["save_details_button"])){
     $email = FormSanitizer::sanitize_form_email($_POST["email"]);
 
     if($account->update_details($firstname, $lastname, $email, $user_logged)){
-        echo "Success";
+        $details_message = "<div class='alertSuccess'>
+                                Details Update Successfully!
+                            </div>";
     }else{
-        echo "Failure";
+        $error_message = $account->get_first_error();
+
+        $details_message = "<div class='alertError'>
+                                $error_message
+                            </div>";
     }
 }
 ?>
@@ -39,6 +48,10 @@ if(isset($_POST["save_details_button"])){
             <input type="text" name="firstname" placeholder="Your First name" value="<?php echo $firstname?>" />
             <input type="text" name="lastname" placeholder="Your Last name" value="<?php echo $lastname?>" />
             <input type="email" name="email" placeholder="Your Email" value="<?php echo $email?>" />
+
+            <div class="message">
+                <?php echo $details_message ?>
+            </div>
 
             <input type="submit" name="save_details_button" value="Save" />
         
