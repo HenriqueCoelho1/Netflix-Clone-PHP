@@ -24,6 +24,7 @@ class Account{
         }
     }
 
+
     public function register($fn, $ln, $un, $em, $em2, $pw, $pw2){
         $this->validate_first_name($fn);
         $this->validate_last_name($ln);
@@ -148,8 +149,38 @@ class Account{
     }
 
     public function get_first_error(){
+        if(!empty($this->error_array)){
+            return $this->error_array[0];
+        }
+    }
+
+    public function update_password($old_pw, $pw, $pw2, $un){
+        $this->validate_old_password($old_pw, $un);
+        $this->validate_password($pw, $pw2);
+
         if(empty($this->error_array)){
-            return $this->error_array;
+            $query = $this->con->prepare("UPDATE user SET password=:pw WHERE username=:un");
+            $pw = hash("sha512", $pw);
+            $query->bindValue(":pw", $pw);
+            $query->bindValue(":un", $un);
+            
+            return $query->execute();
+        }
+
+    }
+
+    public function validate_old_password($old_pw, $un){
+        $pw = hash("sha512", $old_pw);
+
+        $query = $this->con->prepare("SELECT * FROM user WHERE username=:un AND password=:pw");
+        $query->bindValue(":un", $un);
+        $query->bindValue(":pw", $pw);
+
+        $query->execute();
+
+        if($query->rowCount() === 0){
+            array_push($this->error_array, Constants::$password_incorrect);
+
         }
     }
 }

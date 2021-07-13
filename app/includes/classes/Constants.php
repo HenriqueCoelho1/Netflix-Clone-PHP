@@ -10,4 +10,5 @@ class Constants{
     public static $password_dont_match = "The password do not match";
     public static $password_length = "Your password must be between 6 and 26 characters";
     public static $login_failed = "Your Username or your Password was incorrect";
+    public static $password_incorrect = "Your old Password is incorrect";
 } 
