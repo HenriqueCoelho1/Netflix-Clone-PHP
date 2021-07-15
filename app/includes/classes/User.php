@@ -23,6 +23,9 @@ class User {
     public function get_email(){
         return $this->sql_data["email"];
     }
+    public function get_subscribed(){
+        return $this->sql_data["is_subscribed"];
+    }
 
 
 
