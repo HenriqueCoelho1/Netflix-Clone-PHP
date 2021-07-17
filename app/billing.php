@@ -13,8 +13,8 @@ use PayPal\Api\ShippingAddress;
 // Create new agreement
 $agreement = new Agreement();
 $agreement->setName('Subscription to Netflix-Clone')
-  ->setDescription('Recurring payments to Netflix clone')
-  ->setStartDate(gmdate("Y-m-d\TH:i:s\Z", strtotime("+7 days", time())));
+  ->setDescription('$29.99 setup fee and then recurring payments to Netflix clone of $29.99')
+  ->setStartDate(gmdate("Y-m-d\TH:i:s\Z", strtotime("+1 mouth", time())));
 
 // Set plan id
 $plan = new Plan();
